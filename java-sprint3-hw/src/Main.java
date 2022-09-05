@@ -1,47 +1,53 @@
+import tasks.Epic;
+import tasks.SubTask;
+import tasks.Task;
+import tasks.Status;
+import util.TaskManager;
+
 import java.util.ArrayList;
 
 public class Main {
     public static TaskManager taskManager = new TaskManager();
 
     public static void main(String[] args) {
-        System.out.println("----------Добавим 2 эпика, подзадачи, задачу и выведем список");
+        System.out.println("----------Р”РѕР±Р°РІРёРј 2 СЌРїРёРєР°, РїРѕРґР·Р°РґР°С‡Рё, Р·Р°РґР°С‡Сѓ Рё РІС‹РІРµРґРµРј СЃРїРёСЃРѕРє");
         addAllTasks();
         printAllTasks();
 
-        System.out.println("----------Удалим задачи и выведем количество оставшихся задач...");
+        System.out.println("----------РЈРґР°Р»РёРј Р·Р°РґР°С‡Рё Рё РІС‹РІРµРґРµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РѕСЃС‚Р°РІС€РёС…СЃСЏ Р·Р°РґР°С‡...");
         taskManager.delAllTasks();
-        System.out.println("...количество оставшихся задач = " + taskManager.getTaskList().size());
+        System.out.println("...РєРѕР»РёС‡РµСЃС‚РІРѕ РѕСЃС‚Р°РІС€РёС…СЃСЏ Р·Р°РґР°С‡ = " + taskManager.getTaskList().size());
 
-        System.out.println("----------Добавим снова те же задачи (2 эпика, подзадачи, задачу).");
+        System.out.println("----------Р”РѕР±Р°РІРёРј СЃРЅРѕРІР° С‚Рµ Р¶Рµ Р·Р°РґР°С‡Рё (2 СЌРїРёРєР°, РїРѕРґР·Р°РґР°С‡Рё, Р·Р°РґР°С‡Сѓ).");
         addAllTasks();
 
-        System.out.println("----------Добавим эпик3, подзадачу 3.1 и заменим эпик 1 на эпик 3...");
+        System.out.println("----------Р”РѕР±Р°РІРёРј СЌРїРёРє3, РїРѕРґР·Р°РґР°С‡Сѓ 3.1 Рё Р·Р°РјРµРЅРёРј СЌРїРёРє 1 РЅР° СЌРїРёРє 3...");
         Epic epicThird = new Epic(TaskManager.getNewId(), "epic 3", "epic 3");
         taskManager.addNewTask(new SubTask(TaskManager.getNewId(), "subtask 3.1", "subtask epic 3", Status.NEW, epicThird));
         Epic foundFirstEpic = (Epic) taskManager.findTaskByTitle("epic 1");
         taskManager.updateTask(foundFirstEpic, epicThird);
-        System.out.println("... список после апдэйта 3-го эпика...");
+        System.out.println("... СЃРїРёСЃРѕРє РїРѕСЃР»Рµ Р°РїРґСЌР№С‚Р° 3-РіРѕ СЌРїРёРєР°...");
         printAllTasks();
 
-        System.out.println("----------Поменяем статус у подзадачи и проверим статус эпика до и после...");
+        System.out.println("----------РџРѕРјРµРЅСЏРµРј СЃС‚Р°С‚СѓСЃ Сѓ РїРѕРґР·Р°РґР°С‡Рё Рё РїСЂРѕРІРµСЂРёРј СЃС‚Р°С‚СѓСЃ СЌРїРёРєР° РґРѕ Рё РїРѕСЃР»Рµ...");
         Epic epic2 = (Epic) taskManager.findTaskByTitle("epic 2");
-        System.out.println("...эпик 2 - " + epic2);
-        System.out.println("...статус эпика 2 до изменения статуса подзадачи = " + epic2.getStatus());
+        System.out.println("...СЌРїРёРє 2 - " + epic2);
+        System.out.println("...СЃС‚Р°С‚СѓСЃ СЌРїРёРєР° 2 РґРѕ РёР·РјРµРЅРµРЅРёСЏ СЃС‚Р°С‚СѓСЃР° РїРѕРґР·Р°РґР°С‡Рё = " + epic2.getStatus());
         if (epic2.getSubTaskArrayList().size() > 0) {
             SubTask subTaskEpic2 = epic2.getSubTaskArrayList().get(0);
             subTaskEpic2.setStatus(Status.IN_PROGRESS);
         }
-        System.out.println("...статус эпика 2 после изменения статуса подзадачи = " + epic2.getStatus());
-        System.out.println("...эпик 2 - " + epic2);
+        System.out.println("...СЃС‚Р°С‚СѓСЃ СЌРїРёРєР° 2 РїРѕСЃР»Рµ РёР·РјРµРЅРµРЅРёСЏ СЃС‚Р°С‚СѓСЃР° РїРѕРґР·Р°РґР°С‡Рё = " + epic2.getStatus());
+        System.out.println("...СЌРїРёРє 2 - " + epic2);
 
-        System.out.println("удалим подзадачу IN_PROGRESS у эпика 2 и проверим его статус до и после...");
-        System.out.println("...статус эпика 2 до удаления подзадачи = " + epic2.getStatus());
+        System.out.println("СѓРґР°Р»РёРј РїРѕРґР·Р°РґР°С‡Сѓ IN_PROGRESS Сѓ СЌРїРёРєР° 2 Рё РїСЂРѕРІРµСЂРёРј РµРіРѕ СЃС‚Р°С‚СѓСЃ РґРѕ Рё РїРѕСЃР»Рµ...");
+        System.out.println("...СЃС‚Р°С‚СѓСЃ СЌРїРёРєР° 2 РґРѕ СѓРґР°Р»РµРЅРёСЏ РїРѕРґР·Р°РґР°С‡Рё = " + epic2.getStatus());
         if (epic2.getSubTaskArrayList().size() > 0) {
             SubTask subTaskEpic2 = epic2.getSubTaskArrayList().get(0);
             taskManager.delTask(subTaskEpic2);
         }
-        System.out.println("...статус эпика 2 после удаления подзадачи = " + epic2.getStatus());
-        System.out.println("...эпик 2 - " + epic2);
+        System.out.println("...СЃС‚Р°С‚СѓСЃ СЌРїРёРєР° 2 РїРѕСЃР»Рµ СѓРґР°Р»РµРЅРёСЏ РїРѕРґР·Р°РґР°С‡Рё = " + epic2.getStatus());
+        System.out.println("...СЌРїРёРє 2 - " + epic2);
     }
 
     public static void addAllTasks() {

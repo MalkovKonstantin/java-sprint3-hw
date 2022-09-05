@@ -1,10 +1,12 @@
+package tasks;
+
 public class Task {
     private int id;
     private String title;
     private String description;
     private Status status;
 
-    private static int idCounter; // счетчик идентификаторов
+    private static int idCounter;
 
     public Task(int id, String title, String description, Status status) {
         this.id = id;
@@ -56,7 +58,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "tasks.Task{" +
                 "id=" + id +
                 ", tit.='" + title + '\'' +
                 ", st.=" + status +
