@@ -1,7 +1,7 @@
-public class SubTask extends Task{
+public class SubTask extends Task {
     private Epic epic;
 
-    public SubTask(int id, String title, String description, Status status,Epic epic) {
+    public SubTask(int id, String title, String description, Status status, Epic epic) {
         super(id, title, description, status);
         this.epic = epic;
         epic.addSubTask(this);
@@ -18,7 +18,7 @@ public class SubTask extends Task{
     @Override
     public void setStatus(Status status) {
         super.setStatus(status);
-        epic.setEpicStatus();
+        epic.updateEpicStatus();
     }
 
     @Override

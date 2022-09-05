@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 
-public class Epic extends Task{
-    private ArrayList<SubTask> subTaskArrayList = new ArrayList<>();
+public class Epic extends Task {
+    private final ArrayList<SubTask> subTaskArrayList = new ArrayList<>();
 
     public Epic(int id, String title, String description) {
         super(id, title, description);
-        // установим статус
-        setEpicStatus();
+        this.setStatus(Status.NEW);
     }
 
     public ArrayList<SubTask> getSubTaskArrayList() {
@@ -23,30 +22,30 @@ public class Epic extends Task{
         }
     }
 
-    public void addSubTask(SubTask subTask){
+    public void addSubTask(SubTask subTask) {
         subTaskArrayList.add(subTask);
     }
 
-    public void delSubTask(SubTask subTask){
+    public void delSubTask(SubTask subTask) {
         subTaskArrayList.remove(subTask);
-        setEpicStatus();
+        updateEpicStatus();
     }
 
-    public void setEpicStatus(){
+    public void updateEpicStatus() {
         ArrayList<Status> statuses = new ArrayList<>();
         for (SubTask subTask : subTaskArrayList) {
             // если не нашли в массиве, то добавим
-            if(statuses.indexOf(subTask.getStatus()) == -1){
+            if (!statuses.contains(subTask.getStatus())) {
                 statuses.add(subTask.getStatus());
             }
         }
         // если статус один и все = new или нет подзадач то NEW
-        if (statuses.size() == 0 || statuses.size() == 1 && statuses.get(0) == Status.NEW){
+        if (statuses.size() == 0 || statuses.size() == 1 && statuses.get(0) == Status.NEW) {
             this.setStatus(Status.NEW);
-        // если все выполнены, то статус DONE
-        } else if (statuses.size() == 1 && statuses.get(0) == Status.DONE){
+            // если все выполнены, то статус DONE
+        } else if (statuses.size() == 1 && statuses.get(0) == Status.DONE) {
             this.setStatus(Status.DONE);
-        // иначе в процессе
+            // иначе в процессе
         } else {
             this.setStatus(Status.IN_PROGRESS);
         }

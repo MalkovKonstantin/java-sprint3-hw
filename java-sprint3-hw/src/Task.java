@@ -4,10 +4,7 @@ public class Task {
     private String description;
     private Status status;
 
-    protected static int idCounter; // счетчик идентификаторов
-    public static int getNewId() {
-        return idCounter++;
-    }
+    private static int idCounter; // счетчик идентификаторов
 
     public Task(int id, String title, String description, Status status) {
         this.id = id;
@@ -22,7 +19,15 @@ public class Task {
         this.description = description;
     }
 
-    public void updateTask(Task task){
+    public static int getIdCounter() {
+        return idCounter;
+    }
+
+    public static void setIdCounter(int idCounter) {
+        Task.idCounter = idCounter;
+    }
+
+    public void updateTask(Task task) {
         this.id = task.getId();
         this.title = task.getTitle();
         this.description = task.getDescription();
@@ -33,24 +38,12 @@ public class Task {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Status getStatus() {
