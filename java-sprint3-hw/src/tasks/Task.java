@@ -6,8 +6,6 @@ public class Task {
     private String description;
     private Status status;
 
-    private static int idCounter;
-
     public Task(int id, String title, String description, Status status) {
         this.id = id;
         this.title = title;
@@ -19,14 +17,6 @@ public class Task {
         this.id = id;
         this.title = title;
         this.description = description;
-    }
-
-    public static int getIdCounter() {
-        return idCounter;
-    }
-
-    public static void setIdCounter(int idCounter) {
-        Task.idCounter = idCounter;
     }
 
     public void updateTask(Task task) {

@@ -17,7 +17,7 @@ public class Epic extends Task {
     @Override
     public void updateTask(Task task) {
         super.updateTask(task);
-        // ������� ��������� �� ������ ����� � ��������� �� ������� ����
+        // добавим подзадачи из нового эпика и установим им текущий эпик
         for (SubTask subTask : ((Epic) task).getSubTaskArrayList()) {
             subTask.setEpic(this);
             this.addSubTask(subTask);
@@ -36,18 +36,18 @@ public class Epic extends Task {
     public void updateEpicStatus() {
         ArrayList<Status> statuses = new ArrayList<>();
         for (SubTask subTask : subTaskArrayList) {
-            // ���� �� ����� � �������, �� �������
+            // если не нашли в массиве, то добавим
             if (!statuses.contains(subTask.getStatus())) {
                 statuses.add(subTask.getStatus());
             }
         }
-        // ���� ������ ���� � ��� = new ��� ��� �������� �� NEW
+        // если статус один и все = new или нет подзадач то NEW
         if (statuses.size() == 0 || statuses.size() == 1 && statuses.get(0) == Status.NEW) {
             this.setStatus(Status.NEW);
-            // ���� ��� ���������, �� ������ DONE
+            // если все выполнены, то статус DONE
         } else if (statuses.size() == 1 && statuses.get(0) == Status.DONE) {
             this.setStatus(Status.DONE);
-            // ����� � ��������
+            // иначе в процессе
         } else {
             this.setStatus(Status.IN_PROGRESS);
         }
